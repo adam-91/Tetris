@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextRotation = 0;
     let timerId;
     let timeInterval = 200;
+    let score = 0;
 
     const lTetromino = [
         [1, width+1, width*2+1, 2],
@@ -128,6 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
           currentPosition = 4;
           draw();
           displayShape();
+          addScore();
+          gameOver();
       };
     };
 
@@ -183,4 +186,40 @@ document.addEventListener('DOMContentLoaded', () => {
             displayShape;
         };
       });
+
+      function buildRow(initI) {
+          let singleRow = [];
+          let j = 0;
+          for (let i = initI; i<(width+initI); i++) {
+            singleRow[j] = i;
+            j++;
+          };
+          return singleRow;
+      };
+
+      function addScore() {
+          for(let i = 0; i < 199; i+=width) {
+            let row = buildRow(i);
+ 
+            if(row.every(index => squares[index].classList.contains('taken'))) {
+                score +=10; 
+                scoreDisplay.innerHTML = score;
+                row.forEach(index => {
+                    squares[index].classList.remove('taken');
+                    squares[index].classList.remove('tetromino');
+                });
+                const squaresRemoved = squares.splice(i,width);
+                squares = squaresRemoved.concat(squares);
+                squares.forEach(cell => grid.appendChild(cell));               
+            };
+        };
+      };
+
+      function gameOver() {
+        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+            scoreDisplay.innerHTML = 'end';
+            clearInterval(timerId);
+            console.log('game over');
+        };
+      };
 })
