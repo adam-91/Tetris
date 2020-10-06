@@ -9,19 +9,31 @@
     <body>
         <h3>Score: <span id="score">0 </span></h3>
         <button id="start-button">Start game</button>
+        <div class="container">
+            <div class="grid">
+                <script>
+                    var i;
+                    var htmlText = "";
+                        for (i = 0; i < 200; i++) {
+                            htmlText += '<div></div>\n'
+                        };
+                        for (i = 0; i <10; i++) {
+                            htmlText += '<div class="taken"></div>'
+                        }
+                    document.write(htmlText);
+                </script>
+            </div>
 
-        <div class="grid">
-            <script>
-                var i;
-                var htmlText = "";
-                    for (i = 0; i < 200; i++) {
-                        htmlText += '<div></div>\n'
-                    };
-                    for (i = 0; i <10; i++) {
-                        htmlText += '<div class="taken"></div>'
-                    }
-                document.write(htmlText);
-            </script>
+            <div class="mini-grid">
+                <script>
+                    var i;
+                    var htmlText = "";
+                        for (i = 0; i < 16; i++) {
+                            htmlText += '<div></div>\n'
+                        };
+                    document.write(htmlText);
+                </script>
+            </div>
         </div>
     </body>
 </html>
